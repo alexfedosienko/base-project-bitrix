@@ -1,0 +1,52 @@
+Options -Indexes 
+ErrorDocument 404 /404.php
+
+Options +FollowSymLinks
+RewriteEngine On
+
+# Редирект с www на без www
+RewriteCond %{HTTP_HOST} ^www.makilove.ru$ [NC]
+RewriteRule ^(.*)$ https://makilove.ru/$1 [R=301,L]
+
+# Редирект с http на https
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.php\ HTTP/
+RewriteRule ^index\.php$ https://makilove.ru/$1 [R=301,L]
+
+RewriteCond %{REQUEST_URI} !\?
+RewriteCond %{REQUEST_URI} !\&amp;
+RewriteCond %{REQUEST_URI} !\=
+RewriteCond %{REQUEST_URI} !\.
+RewriteCond %{REQUEST_URI} !\/$
+RewriteRule ^(.*[^\/])$ /$1/ [R=301,L]
+
+<IfModule mod_php7.c>
+	php_flag session.use_trans_sid off
+	#php_value display_errors 1
+	#php_value mbstring.internal_encoding UTF-8
+	#php_flag allow_call_time_pass_reference 1
+</IfModule>
+
+<IfModule mod_dir.c>
+    DirectoryIndex index.php index.html
+</IfModule>
+
+<ifModule mod_expires.c>
+    ExpiresActive On
+    #по умолчанию кеш на 5 секунд
+    ExpiresDefault "access plus 5 seconds"
+    #кэшируем флэш и изображения на месяц
+    ExpiresByType image/x-icon "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 4 weeks"
+    ExpiresByType image/png "access plus 30 days"
+    ExpiresByType image/gif "access plus 43829 minutes"
+    ExpiresByType application/x-shockwave-flash "access plus 2592000 seconds"
+    #кэшируем CSS, JavaScript и текстовые файлы на одну неделю
+    ExpiresByType text/css "access plus 604800 seconds"
+    ExpiresByType text/javascript "access plus 604800 seconds"
+    ExpiresByType application/javascript "access plus 604800 seconds"
+    ExpiresByType application/x-javascript "access plus 604800 seconds"
+    #кэшируем HTML и HTM файлы на один день
+    ExpiresByType text/html "access plus 43200 seconds"
+    #кэшируем XML файлы на десять минут
+    ExpiresByType application/xhtml+xml "access plus 600 seconds"
+</ifModule>
