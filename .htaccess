@@ -5,12 +5,12 @@ Options +FollowSymLinks
 RewriteEngine On
 
 # Редирект с www на без www
-RewriteCond %{HTTP_HOST} ^www.makilove.ru$ [NC]
-RewriteRule ^(.*)$ https://makilove.ru/$1 [R=301,L]
+RewriteCond %{HTTP_HOST} ^www.domain.ru$ [NC]
+RewriteRule ^(.*)$ https://domain.ru/$1 [R=301,L]
 
 # Редирект с http на https
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.php\ HTTP/
-RewriteRule ^index\.php$ https://makilove.ru/$1 [R=301,L]
+RewriteRule ^index\.php$ https://domain.ru/$1 [R=301,L]
 
 RewriteCond %{REQUEST_URI} !\?
 RewriteCond %{REQUEST_URI} !\&amp;
